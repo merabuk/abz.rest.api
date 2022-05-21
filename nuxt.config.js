@@ -1,6 +1,18 @@
 import colors from 'vuetify/es5/util/colors'
+require('dotenv').config()
+
+const {
+  APP_PORT,
+  APP_HOST
+} = process.env
 
 export default {
+  // Server config
+  server: {
+    port: APP_PORT,
+    host: APP_HOST
+  },
+
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     titleTemplate: '%s - abz.rest.api',
@@ -25,6 +37,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    '~/plugins/api'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -33,11 +46,13 @@ export default {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     // https://go.nuxtjs.dev/vuetify
-    '@nuxtjs/vuetify',
+    '@nuxtjs/vuetify'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    '@nuxtjs/axios',
+    '@nuxtjs/dotenv',
   ],
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
@@ -61,5 +76,10 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+  },
+
+  // Router settings
+  router: {
+    routeNameSplitter: '/'
   }
 }
