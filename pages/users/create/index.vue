@@ -1,21 +1,16 @@
 <template>
   <v-row>
     <info-message></info-message>
-    <v-row
-      v-if="!$store.state.message"
-      class="mt-1"
-    >
-      <v-col
-        cols="11"
-      >
+    <v-col cols="12">
+      <v-row class="mt-1">
+      <v-col cols="11">
         <v-text-field
           v-model="user.name"
           label="Name"
+          :error-messages="errors.name"
         ></v-text-field>
       </v-col>
-      <v-col
-        cols="1"
-      >
+      <v-col cols="1">
         <v-tooltip bottom>
           <template v-slot:activator="{ on, attrs }">
             <v-btn
@@ -33,31 +28,29 @@
           <span>Get JWT token</span>
         </v-tooltip>
       </v-col>
-      <v-col
-        cols="12"
-      >
+      <v-col cols="12">
         <v-text-field
           v-model="user.email"
           label="Email"
+          :error-messages="errors.email"
         ></v-text-field>
         <v-text-field
           v-model="user.phone"
           label="Phone"
+          :error-messages="errors.phone"
         ></v-text-field>
         <v-select
           v-model="user.positionId"
           :items="positions"
+          :error-messages="errors.position_id"
           item-text="name"
           item-value="id"
           prepend-icon="mdi-badge-account"
           label="Position"
         ></v-select>
-      </v-col>
-      <v-col
-        cols="11"
-      >
         <v-file-input
           v-model="user.photo"
+          :error-messages="errors.photo"
           label="Photo"
           prepend-icon="mdi-camera"
           accept="image/*"
@@ -65,27 +58,30 @@
           show-size
         ></v-file-input>
       </v-col>
-      <v-col
-        cols="1"
-      >
-        <v-tooltip bottom>
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              @click="saveUser"
-              icon
-              large
-              outlined
-              :color="btnColorSave"
-              v-bind="attrs"
-              v-on="on"
-            >
-              <v-icon>mdi-content-save</v-icon>
-            </v-btn>
-          </template>
-          <span>Save User</span>
-        </v-tooltip>
+      <v-col cols="12">
+        <v-row>
+          <v-btn to="/users">BACK</v-btn>
+          <v-spacer></v-spacer>
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                @click="saveUser"
+                icon
+                large
+                outlined
+                :color="btnColorSave"
+                v-bind="attrs"
+                v-on="on"
+              >
+                <v-icon>mdi-content-save</v-icon>
+              </v-btn>
+            </template>
+            <span>Save User</span>
+          </v-tooltip>
+        </v-row>
       </v-col>
     </v-row>
+    </v-col>
   </v-row>
 </template>
 
@@ -104,6 +100,13 @@ export default {
         phone: '',
         positionId: '',
         photo: null,
+      },
+      errors: {
+        name: '',
+        email: '',
+        phone: '',
+        position_id: '',
+        photo: '',
       }
     }
   },
@@ -168,8 +171,12 @@ export default {
       })
         .then(res => {
           this.setMessage(res.user_id + ' ' + res.message);
+          this.errors = {};
         })
         .catch(err => {
+          if (err.response.data.fails) {
+            this.errors = err.response.data.fails;
+          }
           this.setMessage(err.response.data.message);
         });
       this.btnColorToken = 'grey';

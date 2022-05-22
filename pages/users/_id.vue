@@ -5,66 +5,58 @@
       v-if="!$store.state.message"
       class="mt-1"
     >
-    <v-col
-      cols="2"
-    >
-      <v-text-field
-        :value="user.id"
-        label="Id"
-        readonly
-      ></v-text-field>
+      <v-col cols="2">
+        <v-text-field
+          :value="user.id"
+          label="Id"
+          readonly
+        ></v-text-field>
+      </v-col>
+      <v-col cols="10">
+        <v-text-field
+          :value="user.name"
+          label="Name"
+          readonly
+        ></v-text-field>
+      </v-col>
+      <v-col cols="10">
+        <v-text-field
+          :value="user.email"
+          label="Email"
+          readonly
+        ></v-text-field>
+        <v-text-field
+          :value="user.phone"
+          label="Phone"
+          readonly
+        ></v-text-field>
+      </v-col>
+      <v-col cols="2">
+        <v-img
+          max-height="150"
+          max-width="150"
+          :src="user.photo"
+          alt="AVA"
+        ></v-img>
+      </v-col>
+      <v-col cols="10">
+        <v-text-field
+          :value="user.position"
+          label="Position"
+          readonly
+        ></v-text-field>
+      </v-col>
+      <v-col cols="2">
+        <v-text-field
+          :value="user.position_id"
+          label="Position Id"
+          readonly
+        ></v-text-field>
+      </v-col>
+    </v-row>
+    <v-col cols="12">
+      <v-btn to="/users">BACK</v-btn>
     </v-col>
-    <v-col
-      cols="10"
-    >
-      <v-text-field
-        :value="user.name"
-        label="Name"
-        readonly
-      ></v-text-field>
-    </v-col>
-    <v-col
-      cols="10"
-    >
-      <v-text-field
-        :value="user.email"
-        label="Email"
-        readonly
-      ></v-text-field>
-      <v-text-field
-        :value="user.phone"
-        label="Phone"
-        readonly
-      ></v-text-field>
-    </v-col>
-    <v-col
-      cols="2"
-    >
-      <v-text-field
-        :value="user.photo"
-        label="Photo"
-        readonly
-      ></v-text-field>
-    </v-col>
-    <v-col
-      cols="10"
-    >
-      <v-text-field
-        :value="user.position"
-        label="Position"
-        readonly
-      ></v-text-field>
-    </v-col>
-    <v-col
-      cols="2"
-    >
-      <v-text-field
-        :value="user.position_id"
-        label="Position Id"
-        readonly
-      ></v-text-field>
-    </v-col>
-  </v-row>
   </v-row>
 </template>
 

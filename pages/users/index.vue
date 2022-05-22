@@ -10,47 +10,45 @@
         class="mt-1"
       >
         <v-row>
-          <v-col
-            cols="12"
-            md="4"
-          >
+          <v-col cols="2">
             <v-text-field
               v-model="perPage"
               label="Users per Page"
               required
             ></v-text-field>
           </v-col>
-
-          <v-col
-            cols="12"
-            md="4"
-          >
+          <v-col cols="2">
             <v-text-field
               v-model="page"
               label="Page number"
               required
             ></v-text-field>
           </v-col>
-
-          <v-col
-            cols="12"
-            md="4"
-          >
+          <v-col cols="2">
             <v-text-field
               v-model="offset"
               label="Offset"
               required
             ></v-text-field>
           </v-col>
+          <v-col
+            cols="6"
+            class="d-flex justify-space-around"
+          >
+            <v-btn
+              @click="showMore"
+              color="primary"
+            >Show More</v-btn>
+            <v-btn
+              @click="refresh"
+              color="info"
+            >Fetch Data</v-btn>
+            <v-btn
+              to="users/create"
+              color="success"
+            >Create</v-btn>
+          </v-col>
         </v-row>
-        <v-btn
-          @click="refresh"
-          color="primary"
-        >Fetch Data</v-btn>
-        <v-btn
-          to="users/create"
-          color="success"
-        >Create</v-btn>
         <v-row>
           <v-simple-table>
             <template v-slot:default>
@@ -95,7 +93,14 @@
                 <td class="text-left">{{ item.position }}</td>
                 <td class="text-left">{{ item.position_id }}</td>
                 <td class="text-left">{{ item.registration_timestamp }}</td>
-                <td class="text-left">{{ item.photo }}</td>
+                <td class="text-left">
+                  <v-img
+                    max-height="70"
+                    max-width="70"
+                    :src="item.photo"
+                    alt="AVA"
+                  ></v-img>
+                </td>
               </tr>
               </tbody>
             </template>
@@ -141,9 +146,19 @@ export default {
     setMessage (message) {
       this.$store.commit('setMessage', message)
     },
-    refresh() {
+    refresh () {
       this.$fetch();
     },
+    showMore () {
+      if (
+        this.perPage === 6
+      ) {
+        this.page++;
+      }
+      this.perPage = 6;
+
+      this.refresh();
+    }
   },
   watch: {
     '$route.query': '$fetch'
