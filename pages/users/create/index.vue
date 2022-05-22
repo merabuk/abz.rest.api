@@ -84,14 +84,6 @@
           </template>
           <span>Save User</span>
         </v-tooltip>
-        <v-btn
-          @click="test"
-          icon
-          large
-          outlined
-        >
-          <v-icon>mdi-camera</v-icon>
-        </v-btn>
       </v-col>
     </v-row>
   </v-row>
@@ -121,7 +113,8 @@ export default {
     },
     btnColorSave () {
       return (
-        this.token
+        this.btnColorToken == 'success'
+        &&this.token
         && this.user.name
         && this.user.email
         && this.user.phone
@@ -147,7 +140,6 @@ export default {
         .catch(err => {
           this.setMessage(err.response.data.message);
         });
-
     },
     async getToken () {
       await this.$api.$get(`api/v1/token`)
@@ -166,7 +158,6 @@ export default {
       formData.append('phone', this.user.phone);
       formData.append('position_id', this.user.positionId);
       formData.append('photo', this.user.photo);
-      console.log(formData);
       await this.$api.$post(`api/v1/users`,
         formData,
         {
@@ -176,10 +167,10 @@ export default {
         }
       })
         .then(res => {
-          console.log(res)
+          this.setMessage(res.user_id + ' ' + res.message);
         })
         .catch(err => {
-          console.log(err.response.data);
+          this.setMessage(err.response.data.message);
         });
       this.btnColorToken = 'grey';
     },
@@ -188,9 +179,6 @@ export default {
     },
     setMessage (message) {
       this.$store.commit('setMessage', message)
-    },
-    test() {
-      console.log(this.user.photo);
     }
   }
 }
