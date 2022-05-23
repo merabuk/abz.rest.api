@@ -155,6 +155,7 @@ export default {
         });
     },
     async saveUser () {
+      this.setMessage('');
       let formData = new FormData();
       formData.append('name', this.user.name);
       formData.append('email', this.user.email);
