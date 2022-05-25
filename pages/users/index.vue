@@ -50,7 +50,8 @@
           </v-col>
         </v-row>
         <v-row>
-          <v-simple-table>
+          <v-col cols="12">
+            <v-simple-table>
             <template v-slot:default>
               <thead>
               <tr>
@@ -105,6 +106,7 @@
               </tbody>
             </template>
           </v-simple-table>
+          </v-col>
         </v-row>
       </v-row>
     </v-col>
@@ -113,13 +115,22 @@
 
 <script>
 import InfoMessage from '../../components/InfoMessage'
+
 export default {
   name: 'Users',
+  components: {
+    InfoMessage,
+  },
   data: () => ({
       perPage: 5,
       page: 1,
       offset: 0,
   }),
+  head() {
+    return {
+      title: 'Users',
+    }
+  },
   async fetch() {
     await this.$api.$get('api/v1/users'+ this.urlQueryParam)
       .then(res => {

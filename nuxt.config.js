@@ -3,7 +3,8 @@ require('dotenv').config()
 
 const {
   APP_PORT,
-  APP_HOST
+  APP_HOST,
+  APP_TITLE
 } = process.env
 
 export default {
@@ -15,8 +16,8 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - abz.rest.api',
-    title: 'abz.rest.api',
+    titleTemplate: `%s - ${APP_TITLE}`,
+    title: `${APP_TITLE}`,
     htmlAttrs: {
       lang: 'en'
     },

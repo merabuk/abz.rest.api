@@ -55,9 +55,12 @@
 
 <script>
 import InfoMessage from '../components/InfoMessage'
+
 export default {
   name: 'Position',
-  comments: { InfoMessage },
+  components: {
+    InfoMessage
+  },
   async fetch() {
     await this.$api.$get('api/v1/positions')
       .then(res => {
@@ -67,6 +70,11 @@ export default {
       .catch(err => {
         this.setMessage(err.response.data.message);
       });
+  },
+  head() {
+    return {
+      title: 'Positions',
+    }
   },
   computed: {
     positions () {

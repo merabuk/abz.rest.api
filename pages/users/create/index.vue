@@ -87,9 +87,12 @@
 
 <script>
 import InfoMessage from '../../../components/InfoMessage'
+
 export default {
   name: 'User',
-  comments: { InfoMessage },
+  components: {
+    InfoMessage
+  },
   data() {
     return {
       token: '',
@@ -108,6 +111,11 @@ export default {
         position_id: '',
         photo: '',
       }
+    }
+  },
+  head() {
+    return {
+      title: 'Create User',
     }
   },
   computed: {
@@ -171,10 +179,12 @@ export default {
         }
       })
         .then(res => {
+          console.log(res);
           this.setMessage(res.user_id + ' ' + res.message);
           this.errors = {};
         })
         .catch(err => {
+          console.log(err);
           if (err.response.data.fails) {
             this.errors = err.response.data.fails;
           }

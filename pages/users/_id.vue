@@ -62,12 +62,20 @@
 
 <script>
 import InfoMessage from '../../components/InfoMessage'
+
 export default {
   name: 'User',
-  comments: { InfoMessage },
+  components: {
+    InfoMessage
+  },
   data() {
     return {
       user: {}
+    }
+  },
+  head() {
+    return {
+      title: this.user.name,
     }
   },
   created () {
